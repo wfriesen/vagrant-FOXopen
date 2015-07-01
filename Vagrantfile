@@ -10,11 +10,22 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.hostname = "oracle"
 
+  # Need this to stop apt-get install from failing with 404
+  config.vm.provision :shell, :inline => "apt-get update --fix-missing"
+
   # share this project under /home/vagrant/vagrant-ubuntu-oracle-xe
   config.vm.synced_folder ".", "/home/vagrant/vagrant-ubuntu-oracle-xe", :mount_options => ["dmode=777","fmode=666"]
+
+  # Tomcat folders
+  config.vm.synced_folder "./webapps", "/var/lib/tomcat/webapps", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
+  config.vm.synced_folder "./conf", "/etc/tomcat", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
+  config.vm.synced_folder "./log", "/var/log/tomcat", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
   
   # Forward Oracle port
   config.vm.network :forwarded_port, guest: 1521, host: 1521
+
+  # Tomcat Port
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
 
   # Provider-specific configuration so you can fine-tune various backing
   # providers for Vagrant. These expose provider-specific options.
@@ -42,6 +53,12 @@ Vagrant.configure("2") do |config|
 SCRIPT
 
   config.vm.provision "shell", inline: $install_puppet_modules
+
+  config.vm.provision "puppet" do |puppet|
+    puppet.manifests_path = "Puppet/manifests"
+    puppet.module_path = "Puppet/modules"
+    puppet.manifest_file  = "site.pp"
+  end
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"

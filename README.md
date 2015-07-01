@@ -103,6 +103,11 @@ to [How many connections can Oracle Express Edition (XE) handle?] you should run
 
 and restart the database.
 
+# Credits
+Most of the Vagrant/Puppet config in this repo has come from the following places:
+* Oracle config from https://github.com/hilverd/vagrant-ubuntu-oracle-xe
+* Tomcat Puppet/Vagrant config from https://github.com/antonyh/vagrant-tomcat
+
 [Vagrant]: http://www.vagrantup.com/
 
 [Puppet]: http://puppetlabs.com/
