@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
   end
 
   # This is just an example, adjust as needed
-  config.vm.provision :shell, :inline => "echo \"America/New_York\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
+  config.vm.provision :shell, :inline => "echo \"Australia/Sydney\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
 
   config.vbguest.auto_update = false
 
