@@ -38,6 +38,9 @@ contributions.
   project. (Alternatively, you could keep the zip file in some other location and make a hard link
   to it from `modules/oracle/files`.)
 
+* Put the CodeSource directory of a FOXopen application into fox/CodeSource
+  This will expect to run the file fox/CodeSource/FiviumScriptInstaller/linux/FiviumScriptInstaller.sh
+
 * *Optional:* To get [Flyway](http://flywaydb.org/) integration, download `ojdbc6.jar` for JDK 1.6 from
     [Oracle Database 11g Release 2 11.2.0.4 JDBC Drivers](http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html),
     and place it in the directory `oracle-jdbc` of this project.

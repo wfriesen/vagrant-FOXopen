@@ -66,6 +66,8 @@ SCRIPT
     puppet.manifest_file = "base.pp"
     puppet.options = "--verbose --trace"
   end
+
+  config.vm.provision "shell", path: "fox/install.sh"
   
   # Run the Maven goals for data-with-flyway
   config.vm.provision "shell", path: "flyway.sh"
