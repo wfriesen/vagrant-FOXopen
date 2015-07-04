@@ -10,5 +10,12 @@ export ORA_SERVICE
 export ORA_PORT
 export ORA_SYS_PW
 
-pushd /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux
-yes | bash FiviumScriptInstaller.sh
+if [ -f /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux/FiviumScriptInstaller.sh ]
+then
+  echo "Deploying FOXopen application"
+  pushd /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux
+  yes | bash FiviumScriptInstaller.sh
+else
+  echo "Cannot find /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux/FiviumScriptInstaller.sh"
+  echo "Not deploying FOXopen application"
+fi
