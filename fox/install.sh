@@ -13,6 +13,17 @@ export ORA_SYS_PW
 if [ -f /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux/FiviumScriptInstaller.sh ]
 then
   echo "Deploying FOXopen application"
+
+  if [ -d /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux ]
+  then
+    echo "Removing existing UtilsForReleaseDirectoryLinux"
+    rm -rf /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux
+  fi
+
+  echo "Generating UtilsForReleaseDirectoryLinux"
+  cp -r /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectory /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux
+  sed -i 's/\\/\//g' /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/*.sql
+
   pushd /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux
   yes | bash FiviumScriptInstaller.sh --force-reset
 else
