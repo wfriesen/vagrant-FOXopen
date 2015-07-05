@@ -17,7 +17,8 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/home/vagrant/vagrant-ubuntu-oracle-xe", :mount_options => ["dmode=777","fmode=666"]
 
   # Tomcat folders
-  config.vm.synced_folder "./webapps", "/var/lib/tomcat/webapps", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
+  config.vm.synced_folder "./webapps", "/var/lib/tomcat7/webapps", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
+  config.vm.synced_folder "./endorsed", "/usr/share/tomcat7/endorsed", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
   config.vm.synced_folder "./conf", "/etc/tomcat", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
   config.vm.synced_folder "./log", "/var/log/tomcat", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
   
@@ -59,6 +60,8 @@ SCRIPT
     puppet.module_path = "Puppet/modules"
     puppet.manifest_file  = "site.pp"
   end
+
+  config.vm.provision "shell", path: "fox/setup.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"
