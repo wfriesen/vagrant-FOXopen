@@ -22,6 +22,10 @@ then
 
   echo "Generating UtilsForReleaseDirectoryLinux"
   cp -r /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectory /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux
+
+  # These files won't be run, so don't keep a copy here.
+  rm /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/PRE_RUN_OPTION*.sql
+
   sed -i 's/UtilsForReleaseDirectory/UtilsForReleaseDirectoryLinux/g' /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/*.sql
   sed -i 's/\\/\//g' /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/*.sql
 
