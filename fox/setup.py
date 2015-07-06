@@ -8,24 +8,27 @@ admin_password = 'admin'
 s = requests.Session()
 s.auth = (admin_user, admin_password)
 
+print "Logging in to FOX at !LOGIN"
 r = s.get('http://localhost:8080/engfxo/fox/!LOGIN')
 
+print "Generating encryption keys at !SECURITY/DEFAULT"
 r = s.get('http://localhost:8080/engfxo/fox/!SECURITY/DEFAULT')
 
+print "Getting FOXopen generated encryption keys"
 soup = bs(r.text, 'html.parser')
 keys = soup.find_all('textarea')
 encryption_key = keys[0].text
 decryption_key = keys[1].text
-
-# Save Encryption Key
 
 payload = {'encryptionKey': encryption_key, 'decryptionKey': decryption_key
 , 'method': 'LITERAL'
 , 'xfsessionid': 'null'
 }
 
+print "POSTing configuration to !HANDLESECURITY"
 r = s.post('http://localhost:8080/engfxo/fox/!HANDLESECURITY', data=payload)
 
+print "Loading !CONFIGURE"
 r = s.get('http://localhost:8080/engfxo/fox/!CONFIGURE')
 
 payload = {
@@ -46,4 +49,7 @@ payload = {
 , 'xfsessionid': 'null'
 }
 
+print "POSTing configuration to !HANDLECONFIGURE"
 r = s.post('http://localhost:8080/engfxo/fox/!HANDLECONFIGURE', data=payload)
+
+print "FOXopen successfully configured"
