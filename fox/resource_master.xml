@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource-list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <server-group-list>
+    <server-group>
+      <server-group-name>FXO-SERVER-DOC</server-group-name>
+      <description>This server group runs document generation.</description>
+      <document-server>
+        <connect-key>FXO/documents</connect-key>
+        <application-mnem>fxo</application-mnem>
+      </document-server>
+    </server-group>
+  </server-group-list>
+  <server-list>
+    <server>
+      <!-- Internal Servers -->
+      <!-- You need an IP matching for all servers to ensure print preview images load, as the app-mnem forms part of the URL passed to FOP -->
+      <server_select_wildcard_name_or_ip>*.*.*.*</server_select_wildcard_name_or_ip>
+      <server-group-name>FXO-SERVER-DOC</server-group-name>
+      <description>Live Server Group</description>
+    </server>
+  </server-list>
+  <database-list>
+    <database>
+      <database-key>FXO</database-key>
+      <connect-descriptor>(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xe)))</connect-descriptor>
+    </database>
+  </database-list>
+  <connect-list>
+    <connect>
+      <database-key>FXO</database-key>
+      <connect-key>FXO/documents</connect-key>
+      <method>THIN</method>
+      <username>decmgr</username>
+      <password>password</password>
+      <min-channels>1</min-channels>
+      <max-channels>30</max-channels>
+      <min-ready>1</min-ready>
+      <max-ready>2</max-ready>
+      <stmt-cache-size>30</stmt-cache-size>
+    </connect>
+    <connect>
+      <database-key>FXO</database-key>
+      <connect-key>FXO/appenv</connect-key>
+      <method>THIN</method>
+      <username>appenv</username>
+      <password>password</password>
+      <min-channels>1</min-channels>
+      <max-channels>30</max-channels>
+      <min-ready>30</min-ready>
+      <max-ready>60</max-ready>
+      <stmt-cache-size>30</stmt-cache-size>
+    </connect>
+    <connect>
+      <database-key>FXO</database-key>
+      <connect-key>FXO/FOXMGR</connect-key>
+      <method>THIN</method>
+      <username>foxmgr</username>
+      <password>password</password>
+      <min-channels>1</min-channels>
+      <max-channels>1</max-channels>
+      <min-ready>1</min-ready>
+      <max-ready>2</max-ready>
+      <stmt-cache-size>30</stmt-cache-size>
+    </connect>
+  </connect-list>
+  <logging>
+    <connect-key>FXO/FOXMGR</connect-key>
+    <logging-table>fox_thread_log</logging-table>
+  </logging>
+  <application>
+    <mnem>fxo</mnem>
+    <connect-key>FXO/appenv</connect-key>
+    <deploy-status>DEVELOPMENT</deploy-status>
+    <name>Portal Environmental</name>
+    <resource-table>fox_components_env</resource-table>
+    <thread-table>fox_thread_env</thread-table>
+        <upload-log-table>fox_upload_log</upload-log-table>
+    <default-module>BPM001X</default-module>
+    <display-attr-list/>
+    <timeout-module>TIMEDOUT</timeout-module>
+    <logout-page url="https://www.og.decc.gov.uk/portal.htm"/>
+    <ajax-poll-frequency>120000</ajax-poll-frequency>
+    <filetransfer-queue-list>
+      <filetransfer-queue>
+        <name>STD</name>
+        <min-file-bytes>0</min-file-bytes>
+        <max-file-bytes>2097152</max-file-bytes>
+        <max-upload-channels/>
+        <max-download-channels/>
+      </filetransfer-queue>
+      <filetransfer-queue>
+        <name>LARGE</name>
+        <min-file-bytes>2097152</min-file-bytes>
+        <!-- 2 mb in bytes -->
+        <max-file-bytes/>
+        <max-upload-channels>5</max-upload-channels>
+        <max-download-channels>5</max-download-channels>
+      </filetransfer-queue>
+    </filetransfer-queue-list>
+    <processed-image-dispatch-url>http://localhost/engfxo/fox</processed-image-dispatch-url>
+    <processed-image-table>fox_processed_images</processed-image-table>
+    <processed-image-series-list>
+      <processed-image-series>
+        <image-size>Extra Large</image-size>
+        <image-cache>RESIZE-BASE</image-cache>
+        <image-max-width-px>1500</image-max-width-px>
+        <image-max-height-px>1500</image-max-height-px>
+        <image-max-color-depth>32</image-max-color-depth>
+      </processed-image-series>
+      <processed-image-series>
+        <image-size>Large</image-size>
+        <image-cache>CACHED</image-cache>
+        <image-max-width-px>600</image-max-width-px>
+        <image-max-height-px>600</image-max-height-px>
+        <image-max-color-depth>32</image-max-color-depth>
+      </processed-image-series>
+      <processed-image-series>
+        <image-size>Medium</image-size>
+        <image-cache>CACHED</image-cache>
+        <image-max-width-px>300</image-max-width-px>
+        <image-max-height-px>300</image-max-height-px>
+        <image-max-color-depth>32</image-max-color-depth>
+      </processed-image-series>
+      <processed-image-series>
+        <image-size>Small</image-size>
+        <image-cache>CACHED</image-cache>
+        <image-max-width-px>200</image-max-width-px>
+        <image-max-height-px>200</image-max-height-px>
+        <image-max-color-depth>32</image-max-color-depth>
+      </processed-image-series>
+      <processed-image-series>
+        <image-size>Thumbnail</image-size>
+        <image-cache>CACHED</image-cache>
+        <image-max-width-px>48</image-max-width-px>
+        <image-max-height-px>48</image-max-height-px>
+        <image-max-color-depth>32</image-max-color-depth>
+      </processed-image-series>
+    </processed-image-series-list>
+    <file-upload-type-list>
+      <file-upload-type>
+        <name default="true">file</name>
+        <disallowed-extension-csv-list>bat, bin, exe, com, dll, msc, msi, msp, ocx, scr, wsc, wsf, wsh</disallowed-extension-csv-list>
+        <disallowed-mime-type-csv-list description="Executable Files">application/x-dosexec, application/mac-binhex40</disallowed-mime-type-csv-list>
+        <!-- 50mb -->
+        <max-size-bytes>52428800</max-size-bytes>
+      </file-upload-type>
+      <file-upload-type>
+        <name>text</name>
+        <allowed-extension-csv-list>doc, pdf, docx, txt, rtf</allowed-extension-csv-list>
+        <disallowed-mime-type-csv-list>application/octet-stream, application/x-dosexec, application/mac-binhex40</disallowed-mime-type-csv-list>
+        <!-- 50mb -->
+        <max-size-bytes>52428800</max-size-bytes>
+      </file-upload-type>
+      <file-upload-type>
+        <name>image</name>
+        <allowed-extension-csv-list>gif, png, tif, tiff, jpg, jpeg, bmp</allowed-extension-csv-list>
+        <disallowed-mime-type-csv-list>application/octet-stream, application/x-dosexec, application/mac-binhex40</disallowed-mime-type-csv-list>
+        <!-- 50mb -->
+        <max-size-bytes>52428800</max-size-bytes>
+      </file-upload-type>
+    </file-upload-type-list>
+    <virus-scanner-list>
+      <virus-scanner>
+        <type>IGNORE</type>
+      </virus-scanner>
+    </virus-scanner-list>
+  </application>
+  <application>
+    <mnem>sys</mnem>
+    <connect-key>FXO/FOXMGR</connect-key>
+    <deploy-status>DEVELOPMENT</deploy-status>
+    <name>Fox System</name>
+    <resource-table>fox_resource_master</resource-table>
+    <thread-table>fox_thread_sys</thread-table>
+    <upload-log-table>fox_upload_log</upload-log-table>
+    <default-module>login</default-module>
+    <error-module>fox-error</error-module>
+  </application>
+  <default-application>fxo</default-application>
+  <display-attr-list>
+    <attr name="promptLayout">west</attr>
+    <attr name="promptAlignX">auto</attr>
+    <attr name="promptAlignY">top</attr>
+    <attr name="promptFieldGapX">0</attr>
+    <attr name="promptFieldGapY">0</attr>
+    <attr name="promptWidth">auto</attr>
+    <attr name="imageError">img/cross</attr>
+    <attr name="imageHint">img/hint</attr>
+    <attr name="imageHistory">img/history</attr>
+    <attr name="imageSpellCheck">img/spell_check</attr>
+    <attr name="fieldWidth">auto</attr>
+    <attr name="fieldHeight">auto</attr>
+    <attr name="fieldMinWidth">1</attr>
+    <attr name="fieldMaxWidth">80</attr>
+    <attr name="fieldMinHeight">1</attr>
+    <attr name="fieldMaxHeight">6</attr>
+    <attr name="itemxgap">0</attr>
+    <attr name="itemygap">1</attr>
+    <attr name="listxgap">0</attr>
+    <attr name="listygap">0</attr>
+    <attr name="layoutProcess">normal</attr>
+    <attr name="formMaxCols">6</attr>
+    <attr name="formColChars">20</attr>
+    <attr name="infoLayout">east</attr>
+    <attr name="madLayout">east</attr>
+    <attr name="option">fox</attr>
+    <attr name="displayOrder">auto</attr>
+    <attr name="formTableClass">setoutForm</attr>
+    <attr name="nestedTableClass">nested</attr>
+    <attr name="promptClass">pt</attr>
+  </display-attr-list>
+  <filetransfer-service>
+    <overall-concurrent-channels>5</overall-concurrent-channels>
+    <concurrent-upload-channels>5</concurrent-upload-channels>
+    <concurrent-download-channels>4</concurrent-download-channels>
+    <worker-sleep-time-ms>10</worker-sleep-time-ms>
+  </filetransfer-service>
+  <default-error-page-app>sys</default-error-page-app>
+  <authentication-package>securemgr.authentication</authentication-package>
+  <default-dictionary-list name="English(GB)">
+    <dictionary>en_GB</dictionary>
+  </default-dictionary-list>
+</resource-list>

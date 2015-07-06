@@ -29,6 +29,15 @@ then
   sed -i 's/UtilsForReleaseDirectory/UtilsForReleaseDirectoryLinux/g' /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/*.sql
   sed -i 's/\\/\//g' /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/*.sql
 
+  if [ -f /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FoxResourceMaster/* ]
+  then
+    echo "Removing resource_master files"
+    rm /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FoxResourceMaster/*
+  fi
+
+  echo "Adding default resource_master"
+  cp /home/vagrant/vagrant-ubuntu-oracle-xe/fox/resource_master.xml /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FoxResourceMaster
+
   pushd /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux
   yes | bash FiviumScriptInstaller.sh --force-reset
 else
