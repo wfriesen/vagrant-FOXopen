@@ -71,6 +71,8 @@ SCRIPT
   end
 
   config.vm.provision "shell", path: "fox/install.sh"
+
+  config.vm.provision "shell", inline: "service tomcat7 restart"
   
   # Run the Maven goals for data-with-flyway
   config.vm.provision "shell", path: "flyway.sh"
