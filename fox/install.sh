@@ -22,6 +22,7 @@ then
 
   echo "Generating UtilsForReleaseDirectoryLinux"
   cp -r /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectory /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux
+  sed -i 's/UtilsForReleaseDirectory/UtilsForReleaseDirectoryLinux/g' /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/*.sql
   sed -i 's/\\/\//g' /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/DatabasePatches/CorePatches/UtilsForReleaseDirectoryLinux/*.sql
 
   pushd /home/vagrant/vagrant-ubuntu-oracle-xe/fox/CodeSource/FiviumScriptInstaller/linux
